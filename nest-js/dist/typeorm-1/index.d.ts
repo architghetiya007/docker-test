@@ -1,0 +1,11 @@
+import { ApkManager } from "./apk-manager.entity";
+import { DeviceGroup } from "./device-group.entity";
+import { ReleaseManagement } from "./release-management.entity";
+import { ReleaseWiseApkManagement } from "./release-wise-apk-management.enity";
+import { ProductManager } from './product-manager.entity';
+import { OtaScheduler } from "./ota-scheduler.entity";
+import { Group } from './group.entity';
+import { DeviceCerts } from './device-certs.entity';
+declare const entities: (typeof DeviceGroup | typeof Group | typeof ApkManager | typeof ReleaseManagement | typeof ReleaseWiseApkManagement | typeof ProductManager | typeof OtaScheduler | typeof DeviceCerts)[];
+export { ApkManager, DeviceGroup, ReleaseManagement, ReleaseWiseApkManagement, ProductManager, OtaScheduler, Group, DeviceCerts };
+export default entities;

@@ -1,0 +1,32 @@
+version: '3.3'
+
+networks:
+  auth-networks:
+    driver: bridge
+services:
+  mysql-db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQLDB_PASSWORD # Create "test_db" database by default
+      MYSQL_DATABASE: $DB_NAME    
+    ports:
+      - '3307:3306'  # Map MySQL container port 3306 to host port 3307
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    networks:
+      - auth-networks 
+  nest-app:
+    build: ./nest-js
+    ports:
+      - '3001:3001'
+    environment:
+      - DB_HOST=$MYSQLDB_HOST
+      - DB_USERNAME=$MYSQLDB_USER
+      - DB_PASSWORD=$MYSQLDB_PASSWORD
+      - DB_NAME=$MYSQLDB_DATABASE
+      - DB_PORT=$MYSQLDB_DOCKER_PORT      
+    depends_on:
+      - mysql-db
+    networks:
+      - auth-networks          
